@@ -1,0 +1,28 @@
+random_state: 42
+tracking_uri: ./project/mlruns
+experiment_name: ecom-category-baseline
+artifacts_dir: ./project/artifacts
+
+input:
+  dataset_path: ./project/data/demo/train.csv
+  text_columns: [title, vendor, description]
+  target_column: category_ind
+  test_size: 0.25
+
+experiment_grid:
+  - run_name: tfidf_lr_unigram
+    max_features: 3000
+    ngram_max: 1
+    c: 1.0
+  - run_name: tfidf_lr_bigram
+    max_features: 5000
+    ngram_max: 2
+    c: 1.0
+  - run_name: tfidf_lr_stronger_reg
+    max_features: 5000
+    ngram_max: 2
+    c: 0.5
+
+label_studio:
+  export_path: ./project/artifacts/label_studio_tasks.json
+  max_tasks: 30
